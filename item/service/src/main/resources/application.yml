@@ -1,0 +1,16 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: service
+  datasource:
+    url: jdbc:mysql://47.98.136.216:3306/gehua
+    username: root
+    password: wj@110120
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+    instance-id: ${spring.application.name}:${server.port}

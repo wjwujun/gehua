@@ -12,6 +12,8 @@ eureka:
 
 zuul:
   prefix: /api
+  routes:
+    service: /item/**
 
 ribbon: #所有服务的负载均衡配置
   ConnecTimeout: 1000    #ribbon的连续超时时间，单位毫秒ms

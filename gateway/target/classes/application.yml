@@ -11,9 +11,9 @@ eureka:
     instance-id: ${spring.application.name}:${server.port}
 
 zuul:
-  prefix: /api
+  prefix: /api    #所有路径添加前缀
   routes:
-    service: /item/**
+    service: /item/**   #访问商品服务
 
 ribbon: #所有服务的负载均衡配置
   ConnecTimeout: 1000    #ribbon的连续超时时间，单位毫秒ms

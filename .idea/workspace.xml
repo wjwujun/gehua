@@ -6,22 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="177707e2-07da-4a3f-a629-5f526989c678" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/common.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/common/src/main/java/com/gehua/common/enums/ExceptionEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/gehua/common/enums/ExceptionEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gehua.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/item/interface/interface.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/item/interface/src/main/java/com/gehua/pojo/Brand.java" beforeDir="false" afterPath="$PROJECT_DIR$/item/interface/src/main/java/com/gehua/pojo/Brand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/item/interface/src/main/java/com/gehua/pojo/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/item/interface/src/main/java/com/gehua/pojo/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/item/item.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/item/service/service.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/mapper/BrandMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/mapper/BrandMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/service/BrandService.java" beforeDir="false" afterPath="$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/service/BrandService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/web/BrandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/web/BrandController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/item/service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/item/service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/item/service/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/item/service/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registry/registry.iml" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -54,42 +44,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Category.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/item/interface/src/main/java/com/gehua/pojo/Category.java">
+      <file leaf-file-name="BrandController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/web/BrandController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="3" column="28" lean-forward="true" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
+            <state relative-caret-position="128">
+              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
               <folding>
-                <element signature="e#481#482#0" expanded="true" />
-                <element signature="e#506#507#0" expanded="true" />
-                <element signature="e#540#541#0" expanded="true" />
-                <element signature="e#568#569#0" expanded="true" />
-                <element signature="e#599#600#0" expanded="true" />
-                <element signature="e#626#627#0" expanded="true" />
-                <element signature="e#666#667#0" expanded="true" />
-                <element signature="e#698#699#0" expanded="true" />
-                <element signature="e#731#732#0" expanded="true" />
-                <element signature="e#762#763#0" expanded="true" />
-                <element signature="e#808#809#0" expanded="true" />
-                <element signature="e#848#849#0" expanded="true" />
-                <element signature="e#884#885#0" expanded="true" />
-                <element signature="e#915#916#0" expanded="true" />
-                <element signature="e#962#963#0" expanded="true" />
-                <element signature="e#995#996#0" expanded="true" />
-                <element signature="e#1027#1028#0" expanded="true" />
-                <element signature="e#1054#1055#0" expanded="true" />
-                <element signature="e#1095#1096#0" expanded="true" />
-                <element signature="e#1127#1128#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CategoryService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/service/CategoryService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="14" column="8" lean-forward="true" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -104,6 +66,11 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>LIs</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -137,15 +104,15 @@
         <option value="$PROJECT_DIR$/gateway/src/main/java/com/gehua/config/GlobalCorsConfig.java" />
         <option value="$PROJECT_DIR$/registry/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/service/CategoryService.java" />
-        <option value="$PROJECT_DIR$/common/src/main/java/com/gehua/common/enums/ExceptionEnum.java" />
         <option value="$PROJECT_DIR$/item/service/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/common/src/main/java/com/gehua/common/vo/PageResult.java" />
-        <option value="$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/mapper/BrandMapper.java" />
-        <option value="$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/web/BrandController.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/item/interface/src/main/java/com/gehua/pojo/Category.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/com/gehua/common/exception/GehuaException.java" />
+        <option value="$PROJECT_DIR$/item/interface/src/main/java/com/gehua/pojo/Category.java" />
         <option value="$PROJECT_DIR$/item/interface/src/main/java/com/gehua/pojo/Brand.java" />
+        <option value="$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/web/BrandController.java" />
+        <option value="$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/mapper/BrandMapper.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/gehua/common/enums/ExceptionEnum.java" />
         <option value="$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/service/BrandService.java" />
       </list>
     </option>
@@ -187,6 +154,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -331,7 +299,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -466,12 +433,13 @@
       <workItem from="1541471863839" duration="323000" />
       <workItem from="1541554935025" duration="13896000" />
       <workItem from="1541576784367" duration="2317000" />
-      <workItem from="1541579313131" duration="4563000" />
+      <workItem from="1541579313131" duration="4970000" />
+      <workItem from="1541644098442" duration="6095000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42249000" />
+    <option name="totallyTimeSpent" value="48751000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -489,17 +457,17 @@
       <window_info id="UI Designer" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="9" weight="0.38726333" />
+      <window_info anchor="bottom" id="Messages" order="9" weight="0.0" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="14" weight="0.32874355" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Run Dashboard" order="10" sideWeight="0.49924356" visible="true" weight="0.22375216" />
+      <window_info active="true" anchor="bottom" id="Run Dashboard" order="10" sideWeight="0.49924356" visible="true" weight="0.25817555" />
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Spring" order="12" />
       <window_info anchor="bottom" id="Terminal" order="13" weight="0.49741825" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28517398" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28971255" />
       <window_info anchor="right" id="Bean Validation" order="3" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="4" />
@@ -519,13 +487,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/common/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="29" column="36" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/src/main/java/com/gehua/common/utils/NumberUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="621">
@@ -664,13 +625,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/gehua/common/enums/ExceptionEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.m2/repository/com/github/pagehelper/pagehelper/5.1.4/pagehelper-5.1.4-sources.jar!/com/github/pagehelper/PageHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
@@ -717,26 +671,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/mapper/BrandMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/web/BrandController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -758,11 +692,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-525">
           <caret line="99" column="54" lean-forward="true" selection-start-line="99" selection-start-column="54" selection-end-line="99" selection-end-column="54" />
-          <folding>
-            <element signature="e#1486#1530#0" expanded="true" />
-            <element signature="e#2515#2516#0" expanded="true" />
-            <element signature="e#2544#2545#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -783,85 +712,85 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/gehua/common/exception/GehuaException.java">
+    <entry file="file://$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/service/CategoryService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+        <state relative-caret-position="368">
+          <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/item/interface/src/main/java/com/gehua/pojo/Category.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="9" selection-start-line="9" selection-end-line="9" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/service/BrandService.java">
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/gehua/common/exception/GehuaException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="44" column="19" selection-start-line="44" selection-start-column="19" selection-end-line="44" selection-end-column="19" />
+        <state relative-caret-position="338">
+          <caret line="13" column="19" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.m2/repository/com/github/pagehelper/pagehelper/5.1.4/pagehelper-5.1.4-sources.jar!/com/github/pagehelper/PageSerializable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="57" column="5" lean-forward="true" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
+          <folding>
+            <element signature="e#1862#1863#0" expanded="true" />
+            <element signature="e#1890#1891#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/item/interface/src/main/java/com/gehua/pojo/Brand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="7" column="25" lean-forward="true" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+        <state relative-caret-position="101">
+          <caret line="25" column="28" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#421#422#0" expanded="true" />
-            <element signature="e#446#447#0" expanded="true" />
-            <element signature="e#480#481#0" expanded="true" />
-            <element signature="e#508#509#0" expanded="true" />
-            <element signature="e#539#540#0" expanded="true" />
-            <element signature="e#566#567#0" expanded="true" />
-            <element signature="e#606#607#0" expanded="true" />
-            <element signature="e#638#639#0" expanded="true" />
-            <element signature="e#670#671#0" expanded="true" />
-            <element signature="e#698#699#0" expanded="true" />
-            <element signature="e#740#741#0" expanded="true" />
-            <element signature="e#774#775#0" expanded="true" />
-            <element signature="e#810#811#0" expanded="true" />
-            <element signature="e#839#840#0" expanded="true" />
-            <element signature="e#886#887#0" expanded="true" />
-            <element signature="e#922#923#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/item/interface/src/main/java/com/gehua/pojo/Category.java">
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/gehua/common/enums/ExceptionEnum.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="3" column="28" lean-forward="true" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
+        <state relative-caret-position="229">
+          <caret line="11" column="33" lean-forward="true" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/mapper/BrandMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/service/BrandService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
           <folding>
-            <element signature="e#481#482#0" expanded="true" />
-            <element signature="e#506#507#0" expanded="true" />
-            <element signature="e#540#541#0" expanded="true" />
-            <element signature="e#568#569#0" expanded="true" />
-            <element signature="e#599#600#0" expanded="true" />
-            <element signature="e#626#627#0" expanded="true" />
-            <element signature="e#666#667#0" expanded="true" />
-            <element signature="e#698#699#0" expanded="true" />
-            <element signature="e#731#732#0" expanded="true" />
-            <element signature="e#762#763#0" expanded="true" />
-            <element signature="e#808#809#0" expanded="true" />
-            <element signature="e#848#849#0" expanded="true" />
-            <element signature="e#884#885#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
-            <element signature="e#962#963#0" expanded="true" />
-            <element signature="e#995#996#0" expanded="true" />
-            <element signature="e#1027#1028#0" expanded="true" />
-            <element signature="e#1054#1055#0" expanded="true" />
-            <element signature="e#1095#1096#0" expanded="true" />
-            <element signature="e#1127#1128#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/service/CategoryService.java">
+    <entry file="file://$PROJECT_DIR$/item/service/src/main/java/com/gehua/item/web/BrandController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="14" column="8" lean-forward="true" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+        <state relative-caret-position="128">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

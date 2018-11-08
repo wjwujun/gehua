@@ -4,11 +4,11 @@ import com.gehua.common.vo.PageResult;
 import com.gehua.item.service.BrandService;
 import com.gehua.pojo.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("brand")
@@ -16,6 +16,9 @@ public class BrandController {
     @Autowired
     private BrandService brandService;
 
+    /*
+    * 分页查询
+    * */
     @GetMapping("page")
     public ResponseEntity<PageResult<Brand>> querybrandByPage(
             @RequestParam(value = "page",defaultValue = "1") Integer page,
@@ -29,5 +32,14 @@ public class BrandController {
         return  ResponseEntity.ok(result);
 
     }
+
+    @PostMapping
+    public  ResponseEntity<Void> saveBrand(Brand brand,@RequestParam("cids") List<Long> cids){
+        brandService.saveBrand(brand,cids);
+
+        return  ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+
 
 }

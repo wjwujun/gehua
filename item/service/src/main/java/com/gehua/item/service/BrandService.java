@@ -11,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import tk.mybatis.mapper.entity.Example;
 
@@ -44,5 +45,22 @@ public class BrandService {
         //解析分页结果
         PageInfo<Brand> info = new PageInfo<>(list);
         return new PageResult<>(info.getTotal(),list);
+    }
+
+    /*@Transactional 事物*/
+    @Transactional
+    public void saveBrand(Brand brand, List<Long> cids) {
+        //新增
+        int count=brandMapper.insert(brand);
+        if(count==0){
+            throw  new GehuaException(ExceptionEnum.BRAND_SAVE_ERROR);
+        }
+        //新增中间表
+        for(Long cid : cids){
+            count=brandMapper.insertCategorybrand(cid,brand.getId());
+            if(count!=1){
+                throw  new GehuaException(ExceptionEnum.CATEHORY_BRAND_SAVE_ERROR);
+            }
+        }
     }
 }

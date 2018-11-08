@@ -1,13 +1,13 @@
 package com.gehua.pojo;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import tk.mybatis.mapper.annotation.KeySql;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Table(name="tb_category")
 public class Category {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @KeySql(useGeneratedKeys = true)
     private Long id;
     private String name;
     private Long parentId;

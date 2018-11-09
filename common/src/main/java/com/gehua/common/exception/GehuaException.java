@@ -14,5 +14,4 @@ public class GehuaException extends  RuntimeException{
     private ExceptionEnum exceptionEnum;
 
 
-
 }

@@ -14,5 +14,15 @@
         <module name="upload" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common" target="1.8" />
+      <module name="gateway" target="1.8" />
+      <module name="gehua" target="1.8" />
+      <module name="interface" target="1.8" />
+      <module name="item" target="1.8" />
+      <module name="registry" target="1.8" />
+      <module name="service" target="1.8" />
+      <module name="upload" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

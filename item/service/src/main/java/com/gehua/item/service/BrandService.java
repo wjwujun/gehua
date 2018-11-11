@@ -65,4 +65,11 @@ public class BrandService {
     }
 
 
+    public Brand queryById(Long id){
+        Brand brand = brandMapper.selectByPrimaryKey(id);
+        if (brand==null){
+            throw new GehuaException(ExceptionEnum.BRAND_NOT_FOND);
+        }
+        return brand;
+    }
 }

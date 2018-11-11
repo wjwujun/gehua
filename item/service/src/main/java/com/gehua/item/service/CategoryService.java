@@ -27,4 +27,18 @@ public class CategoryService {
         }
         return list;
     }
+
+
+    /*
+    * 通过分类查id
+    * */
+    public List<Category> queryByIds(List<Long> ids){
+        List<Category> list = categoryMapper.selectByIdList(ids);
+        if (CollectionUtils.isEmpty(list)){
+            throw new GehuaException(ExceptionEnum.CATEHORY_NOT_FOND);
+        }
+
+        return list;
+    }
+
 }

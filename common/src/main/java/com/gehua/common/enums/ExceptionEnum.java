@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 public enum ExceptionEnum {
     CATEHORY_NOT_FOND(404,"商品分类未找到！"),
     BRAND_NOT_FOND(404,"品牌未找到！"),
+    SPEC_GROUP_NOT_FOND(404,"商品规格组没有查到！"),
+    SPEC_PARAM_NOT_FOND(404,"商品规格参数没有查到！"),
+    GOODS_NOT_FOND(404,"商品不存在！"),
     BRAND_SAVE_ERROR(400,"品牌新增失败！"),
     CATEHORY_BRAND_SAVE_ERROR(400,"新增品牌分类中间失败！"),
     UPLOAD_ERROR(400,"文件上传失败！"),

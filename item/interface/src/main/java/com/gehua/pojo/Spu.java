@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.Date;
+import java.util.List;
 
 @Table(name="tb_spu")
 public class Spu {
@@ -33,6 +34,31 @@ public class Spu {
     private String Cname;
     @Transient
     private String bname;
+    @Transient
+    private List<Sku> skus;
+
+    @Transient
+    private SpuDetail spuDetail;
+
+
+
+    public List<Sku> getSkus() {
+        return skus;
+    }
+
+    public void setSkus(List<Sku> skus) {
+        this.skus = skus;
+    }
+
+    public SpuDetail getSpuDetail() {
+        return spuDetail;
+    }
+
+    public void setSpuDetail(SpuDetail spuDetail) {
+        this.spuDetail = spuDetail;
+    }
+
+
     public String getCname() {
         return Cname;
     }

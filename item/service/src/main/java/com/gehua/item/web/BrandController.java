@@ -33,6 +33,9 @@ public class BrandController {
 
     }
 
+    /*
+    * 新增
+    * */
     @PostMapping
     public  ResponseEntity<Void> saveBrand(Brand brand,@RequestParam("cids") List<Long> cids){
         brandService.saveBrand(brand,cids);
@@ -40,6 +43,14 @@ public class BrandController {
         return  ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    /*
+    * 查询分类下的所有品牌
+    * */
+    @GetMapping("/cid/{cid}")
+    public ResponseEntity<List<Brand>> queryBrandById(@PathVariable("cid") Long cid){
 
+        return  ResponseEntity.ok(brandService.queryBrandById(cid));
+
+    }
 
 }

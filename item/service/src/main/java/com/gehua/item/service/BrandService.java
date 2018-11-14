@@ -72,4 +72,15 @@ public class BrandService {
         }
         return brand;
     }
+
+    /*
+     * 查询分类下的所有品牌
+     * */
+    public List<Brand> queryBrandById(Long cid) {
+        List<Brand> list = brandMapper.queryByCategoryId(cid);
+        if(CollectionUtils.isEmpty(list)){
+            throw new GehuaException(ExceptionEnum.BRAND_NOT_FOND);
+        }
+        return list;
+    }
 }

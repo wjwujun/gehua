@@ -29,13 +29,16 @@ public class SpecGroupService {
         if(CollectionUtils.isEmpty(list)){
             throw new GehuaException(ExceptionEnum.SPEC_GROUP_NOT_FOND);
         }
-
         return  list;
     }
 
-    public  List<SpecParam> queryParamsByGid(Long gid) {
+    public  List<SpecParam> queryParamsList(Long gid, Long cid, Boolean searching) {
         SpecParam param = new SpecParam();
         param.setGroupId(gid);
+        param.setCid(cid);
+        param.setSearching(searching);
+
+
         List<SpecParam> list = specParampMapper.select(param);
         if(CollectionUtils.isEmpty(list)){
             throw new GehuaException(ExceptionEnum.SPEC_PARAM_NOT_FOND);
@@ -43,4 +46,6 @@ public class SpecGroupService {
 
         return list;
     }
+
+
 }

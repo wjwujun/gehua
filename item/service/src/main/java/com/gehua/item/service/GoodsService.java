@@ -4,20 +4,21 @@ package com.gehua.item.service;
 import com.gehua.common.enums.ExceptionEnum;
 import com.gehua.common.exception.GehuaException;
 import com.gehua.common.vo.PageResult;
+import com.gehua.item.mapper.SkuMapper;
 import com.gehua.item.mapper.SpuDetailMapper;
 import com.gehua.item.mapper.SpuMapper;
-import com.gehua.pojo.Category;
-import com.gehua.pojo.Spu;
+import com.gehua.item.mapper.StockMapper;
+import com.gehua.pojo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -32,6 +33,11 @@ public class GoodsService {
     private CategoryService categoryService;
     @Autowired
     private BrandService brandService;
+
+    @Autowired
+    private SkuMapper skuMapper;
+    @Autowired
+    private StockMapper stockMapper;
 
 
     public PageResult<Spu> querySpuBbyPage(Integer page, Integer rows, Boolean saleable, String key) {
@@ -76,6 +82,125 @@ public class GoodsService {
             spu.setBname(brandService.queryById(spu.getBrandId()).getName());
 
         }
+    }
+
+    public void saveGoods(Spu spu) {
+        //新增spu
+        spu.setId(null);
+        spu.setSaleable(true);
+        spu.setValid(true);
+        spu.setCreateTime(new Date());
+        spu.setLastUpdateTime(spu.getCreateTime());
+        int count = this.spuMapper.insertSelective(spu);
+        if (count!=1){
+            throw  new GehuaException(ExceptionEnum.SAVE_GOODS_ERROR);
+        }
+
+        //新增spuDetail
+        SpuDetail spuDetail = spu.getSpuDetail();
+
+        spuDetail.setSpuId(spu.getId());
+        spuDetailMapper.insert(spuDetail);
+
+        //定义库存集合
+        List<Stock> stockList=new ArrayList<>();
+
+        //新增sku
+        List<Sku> skus = spu.getSkus();
+        for (Sku sku : skus) {
+                sku.setCreateTime(new Date());
+                sku.setLastUpdateTime(sku.getCreateTime());
+                sku.setSpuId(spu.getId());
+
+             count = skuMapper.insert(sku);
+            if (count!=1){
+                throw  new GehuaException(ExceptionEnum.SAVE_GOODS_ERROR);
+            }
+            //新增库存
+            Stock stock = new Stock();
+            stock.setSkuId(sku.getId());
+            stock.setStock(sku.getStock());
+
+            stockList.add(stock);
+        }
+        //批量新增库存
+        count=stockMapper.insertList(stockList);
+        if (count!=stockList.size()){
+            throw  new GehuaException(ExceptionEnum.SAVE_GOODS_ERROR);
+        }
+
+
+    }
+
+    public SpuDetail queryDetailById(Long spuId) {
+        SpuDetail spuDetail = spuDetailMapper.selectByPrimaryKey(spuId);
+        if (spuDetail==null){
+            throw new GehuaException(ExceptionEnum.GOODS_DETAIL_NOT_FOND);
+        }
+        return  spuDetail;
+    }
+
+    public List<Sku> querySkuBySpuId(Long spuId) {
+        //查询sku
+        Sku sku = new Sku();
+        sku.setSpuId(spuId);
+        List<Sku> skuList = skuMapper.select(sku);
+        if(CollectionUtils.isEmpty(skuList)){
+            throw new GehuaException(ExceptionEnum.GOODS_SKU_NOT_FOND);
+        }
+
+        //查询库存
+        /*for (Sku s : list) {
+            Stock stock = stockMapper.selectByPrimaryKey(s.getId());
+            if (stock==null){
+                throw new GehuaException(ExceptionEnum.GOODS_STOCK_NOT_FOND);
+            }
+            s.setStock(stock.getStock());
+        }*/
+        //批量查询
+        List<Long> ids = skuList.stream().map(Sku::getId).collect(Collectors.toList());
+        List<Stock> stockList = stockMapper.selectByIdList(ids);
+
+        //把stock变一个map,其中key是skuid，value是库存
+        Map<Long,Integer> stockMap=stockList.stream().collect(Collectors.toMap(Stock::getSkuId,Stock::getStock));
+        skuList.forEach(s->s.setStock(stockMap.get(s.getId())));
+
+        return skuList;
+
+    }
+
+    @Transactional
+    public void updateGoods(Spu spu) {
+        Sku sku = new Sku();
+        sku.setSpuId(spu.getId());
+        //查询sku
+        List<Sku> skuList = skuMapper.select(sku);
+        if(!CollectionUtils.isEmpty(skuList)){
+            //删除sku
+            skuMapper.delete(sku);
+            // stock
+            List<Long> ids = skuList.stream().map(Sku::getId).collect(Collectors.toList());
+            stockMapper.deleteByIdList(ids);
+        }
+
+        //修改spu
+        spu.setValid(null);
+        spu.setSaleable(null);
+        spu.setLastUpdateTime(new Date());
+        spu.setCreateTime(null);
+        int count = spuMapper.updateByPrimaryKeySelective(spu);
+        if(count!=1){
+            throw new GehuaException(ExceptionEnum.GOODS_UPDATE_ERROR);
+        }
+        //修改detail
+        count = spuDetailMapper.updateByPrimaryKeySelective(spu.getSpuDetail());
+        if(count!=1){
+            throw new GehuaException(ExceptionEnum.GOODS_UPDATE_ERROR);
+        }
+
+        //新增sku和stock
+
+
     }
 }
 

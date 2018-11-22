@@ -7,7 +7,19 @@ spring:
     url: jdbc:mysql://47.98.136.216:3306/gehua
     username: root
     password: wj@110120
-
+  rabbitmq:   #rabbitmq客户端
+    host: 47.98.136.216
+    username: admin
+    password: admin
+    virtual-host: /gehua
+    template:
+      retry:    #失败重试
+        enabled: true   #开启失败重试
+        initial-interval: 10000ms   #第一次重试的间隔时间
+        max-interval: 30000ms     #最长重试j间隔，超过这个时间不再重试
+        multiplier: 2             #下次重试时间的间隔倍数，此处是2表示下次重试时间间隔是上次的2倍
+      exchange: gehua.item.exchange #交换机的缺省值，发送消息如果不指定交换机，就会使用这个
+    publisher-confirms: true    #生产者确认机制，确保消息会正确发送，如果发送失败就会有回执，从而触发重试。
 eureka:
   client:
     service-url:

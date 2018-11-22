@@ -12,6 +12,7 @@ import com.gehua.pojo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,10 @@ public class GoodsService {
     @Autowired
     private StockMapper stockMapper;
 
+
+    //注入mq模板
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     public PageResult<Spu> querySpuBbyPage(Integer page, Integer rows, Boolean saleable, String key) {
         //分页
@@ -128,6 +133,8 @@ public class GoodsService {
         if (count!=stockList.size()){
             throw  new GehuaException(ExceptionEnum.SAVE_GOODS_ERROR);
         }
+        //发送mq消息
+        amqpTemplate.convertAndSend("item.insert",spu.getId());
 
 
     }
@@ -199,8 +206,14 @@ public class GoodsService {
         }
 
         //新增sku和stock
+         //saveSkuAndStock(spu);
+
+        //发送mq消息
+        amqpTemplate.convertAndSend("item.update",spu.getId());
 
 
     }
+
+
 }
 

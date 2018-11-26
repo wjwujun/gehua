@@ -93,7 +93,7 @@ public class BrandService {
 
     /*修改品牌*/
     public Result update(Brand brand) {
-        int count=brandMapper.updateByExample(brand,brand.getId());
+        int count=brandMapper.updateByPrimaryKeySelective(brand);
         if(count!=1){
             return new Result(false,StatusCode.UPDATE_ERROR,"品牌修改失败");
         }
@@ -101,7 +101,10 @@ public class BrandService {
 
     }
 
-    /*删除品牌*/
+    /*
+    * 删除品牌
+    * 没有删除,品牌分类中间表
+    * */
     public Result del(Brand brand) {
         int count=brandMapper.delete(brand);
         if(count!=1){

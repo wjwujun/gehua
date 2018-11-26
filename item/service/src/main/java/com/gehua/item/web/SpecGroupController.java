@@ -18,7 +18,7 @@ public class SpecGroupController {
     @GetMapping("groups/{cid}")
     public Result queryGroupByCid(@PathVariable("cid") Long cid){
 
-        return  specGroupService.queryGroupByCid(cid);
+        return  specGroupService.findGroupByCid(cid);
     }
 
     /*
@@ -30,7 +30,7 @@ public class SpecGroupController {
             @RequestParam(value = "cid",required =false) Long cid,
             @RequestParam(value = "searching",required =false) Boolean searching
             ) {
-        return specGroupService.queryParamsList(gid,cid,searching);
+        return specGroupService.findParamsList(gid,cid,searching);
 
     }
 

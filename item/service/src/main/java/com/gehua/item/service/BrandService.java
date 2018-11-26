@@ -22,7 +22,8 @@ public class BrandService {
     @Autowired
     private BrandMapper brandMapper;
 
-    public Result queryBrandByPage(Integer page, Integer rows, String sortBy, Boolean desc, String key) {
+    /*分页查询*/
+    public Result pageQuery(Integer page, Integer rows, String sortBy, Boolean desc, String key) {
         //分页
         PageHelper.startPage(page,rows);
         //过滤
@@ -49,27 +50,27 @@ public class BrandService {
     }
 
 
-
     /*@Transactional 事物*/
     @Transactional
-    public Result saveBrand(Brand brand, List<Long> cids) {
+    public Result add(Brand brand) {
         //新增
         int count=brandMapper.insert(brand);
         if(count==0){
             return new Result(false,StatusCode.BRAND_SAVE_ERROR,"品牌新增失败");
         }
         //新增中间表
-        for(Long cid : cids){
-            count=brandMapper.insertCategorybrand(cid,brand.getId());
+        for(Long cid : brand.getCids()){
+            System.out.println(cid);
+            count=brandMapper.addCategorybrand(cid,brand.getId());
             if(count!=1){
                 return new Result(false,StatusCode.CATEHORY_BRAND_SAVE_ERROR,"新增品牌分类中间失败");
             }
         }
-        return new Result(false,StatusCode.OK,"新增品牌分类中间失败");
+        return new Result(false,StatusCode.OK,"新增品牌成功");
     }
 
-
-    public Brand queryById(Long id){
+    /*查询单个品牌*/
+    public Brand findById(Long id){
         Brand brand = brandMapper.selectByPrimaryKey(id);
         if (brand==null){
 
@@ -82,8 +83,8 @@ public class BrandService {
     /*
      * 查询分类下的所有品牌
      * */
-    public Result queryBrandById(Long cid) {
-        List<Brand> list = brandMapper.queryByCategoryId(cid);
+    public Result findByCid(Long cid) {
+        List<Brand> list = brandMapper.findByCategoryId(cid);
         if(CollectionUtils.isEmpty(list)){
             return new Result(false,StatusCode.BRAND_NOT_FOND,"品牌未找到");
         }

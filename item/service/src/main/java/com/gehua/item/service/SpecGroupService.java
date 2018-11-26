@@ -22,7 +22,7 @@ public class SpecGroupService {
     @Autowired
     private SpecParampMapper specParampMapper;
 
-    public Result queryGroupByCid(Long cid) {
+    public Result findGroupByCid(Long cid) {
         SpecGroup group = new SpecGroup();
         group.setCid(cid);
         List<SpecGroup> list = specGroupMapper.select(group);
@@ -34,7 +34,7 @@ public class SpecGroupService {
 
     }
 
-    public  Result queryParamsList(Long gid, Long cid, Boolean searching) {
+    public  Result findParamsList(Long gid, Long cid, Boolean searching) {
         SpecParam param = new SpecParam();
         param.setGroupId(gid);
         param.setCid(cid);

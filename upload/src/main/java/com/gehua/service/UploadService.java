@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 @EnableConfigurationProperties(uploadConfig.class)
@@ -62,12 +64,13 @@ public class UploadService {
             StorePath storePath = this.storageClient.uploadFile(file.getInputStream(), file.getSize(), name, null);
 
             //返回路径
-            return   new Result(false,StatusCode.UPLOAD_ERROR,"文件上传失败111",prop.getBaseUrl()+storePath.getFullPath());
+            List<String> url =Arrays.asList(prop.getBaseUrl()+storePath.getFullPath());
+            return   new Result(false,StatusCode.UPLOAD_ERROR,"文件上传成功",url);
 
         } catch (IOException e) {
             //上传失败,抛出失败
-            log.info("文件上传失败111！",e);
-            return new Result(false,StatusCode.UPLOAD_ERROR,"文件上传失败111");
+            log.info("文件上传失败！",e);
+            return new Result(false,StatusCode.UPLOAD_ERROR,e.getMessage());
         }
     }
 }

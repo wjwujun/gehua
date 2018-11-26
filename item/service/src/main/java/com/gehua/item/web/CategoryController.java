@@ -17,7 +17,7 @@ public class CategoryController {
     @GetMapping("list")
     public Result queryCategoryListByPid(@RequestParam("pid") Long pid){
 
-        return  categoryService.queryCategoryListByPid(pid);
+        return  categoryService.findALlByPid(pid);
 
     }
 

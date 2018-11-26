@@ -17,7 +17,8 @@ public class CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
-    public Result queryCategoryListByPid(Long pid) {
+    /*查询分类列表*/
+    public Result findALlByPid(Long pid) {
         Category t = new Category();
         t.setParentId(pid);
         //select将t对象中的非空字段,作为查询对象
@@ -32,7 +33,7 @@ public class CategoryService {
     /*
     * 通过分类查id
     * */
-    public List<Category> queryByIds(List<Long> ids){
+    public List<Category> findByIds(List<Long> ids){
         List<Category> list = categoryMapper.selectByIdList(ids);
         return list;
     }

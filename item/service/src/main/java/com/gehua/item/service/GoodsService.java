@@ -45,7 +45,7 @@ public class GoodsService {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
-    public Result querySpuBbyPage(Integer page, Integer rows, Boolean saleable, String key) {
+    public Result pageQuery(Integer page, Integer rows, Boolean saleable, String key) {
         //分页
         PageHelper.startPage(page,rows);
         //过滤
@@ -80,16 +80,16 @@ public class GoodsService {
     private void loadCategoryAndBrandName(List<Spu> spus) {
         for (Spu spu : spus) {
             //处理分类名称
-            List<String> names = categoryService.queryByIds(Arrays.asList(spu.getCid1(), spu.getCid2()
+            List<String> names = categoryService.findByIds(Arrays.asList(spu.getCid1(), spu.getCid2()
                     , spu.getCid3())).stream().map(Category::getName).collect(Collectors.toList());
             spu.setCname(StringUtils.join(names,"/"));
             //处理品牌名称
-            spu.setBname(brandService.queryById(spu.getBrandId()).getName());
+            spu.setBname(brandService.findById(spu.getBrandId()).getName());
 
         }
     }
 
-    public Result saveGoods(Spu spu) {
+    public Result save(Spu spu) {
         //新增spu
         spu.setId(null);
         spu.setSaleable(true);
@@ -143,7 +143,7 @@ public class GoodsService {
 
     }
 
-    public Result queryDetailById(Long spuId) {
+    public Result findDetailById(Long spuId) {
         SpuDetail spuDetail = spuDetailMapper.selectByPrimaryKey(spuId);
         if (spuDetail==null){
 
@@ -152,7 +152,7 @@ public class GoodsService {
         return new Result(false,StatusCode.OK,"成功",spuDetail);
     }
 
-    public Result querySkuBySpuId(Long spuId) {
+    public Result findBySpid(Long spuId) {
         //查询sku
         Sku sku = new Sku();
         sku.setSpuId(spuId);
@@ -180,8 +180,9 @@ public class GoodsService {
         return new Result(false,StatusCode.OK,"成功",skuList);
     }
 
+    /*修改*/
     @Transactional
-    public Result updateGoods(Spu spu) {
+    public Result update(Spu spu) {
         Sku sku = new Sku();
         sku.setSpuId(spu.getId());
         //查询sku

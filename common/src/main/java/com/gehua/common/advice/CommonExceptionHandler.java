@@ -1,18 +1,17 @@
 package com.gehua.common.advice;
 
-import com.gehua.common.enums.ExceptionEnum;
-import com.gehua.common.exception.GehuaException;
-import com.gehua.common.vo.ExceptionResult;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.gehua.common.utils.Result;
+import com.gehua.common.utils.StatusCode;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
 public class CommonExceptionHandler {
-    @ExceptionHandler(GehuaException.class)
-    public ResponseEntity<ExceptionResult> handleExcption(GehuaException e){
-        return ResponseEntity.status(e.getExceptionEnum().getCode())
-                .body(new ExceptionResult(e.getExceptionEnum()));
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public Result error(Exception e) {
+        e.printStackTrace();
+        return new Result(false, StatusCode.ERROR, e.getMessage());
     }
 }

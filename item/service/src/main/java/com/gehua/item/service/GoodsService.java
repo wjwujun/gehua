@@ -1,9 +1,9 @@
 package com.gehua.item.service;
 
 
-import com.gehua.common.enums.ExceptionEnum;
-import com.gehua.common.exception.GehuaException;
-import com.gehua.common.vo.PageResult;
+import com.gehua.common.utils.PageResult;
+import com.gehua.common.utils.Result;
+import com.gehua.common.utils.StatusCode;
 import com.gehua.item.mapper.SkuMapper;
 import com.gehua.item.mapper.SpuDetailMapper;
 import com.gehua.item.mapper.SpuMapper;
@@ -45,7 +45,7 @@ public class GoodsService {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
-    public PageResult<Spu> querySpuBbyPage(Integer page, Integer rows, Boolean saleable, String key) {
+    public Result querySpuBbyPage(Integer page, Integer rows, Boolean saleable, String key) {
         //分页
         PageHelper.startPage(page,rows);
         //过滤
@@ -66,15 +66,15 @@ public class GoodsService {
         List<Spu> spus = spuMapper.selectByExample(example);
 
         if(CollectionUtils.isEmpty(spus)){
-            throw new GehuaException(ExceptionEnum.GOODS_NOT_FOND);
+            return new Result(false,StatusCode.GOODS_NOT_FOND,"商品不存在");
         }
 
         //解析分类和品牌的名称
         loadCategoryAndBrandName(spus);
         //解析分页结果
         PageInfo<Spu> info = new PageInfo<>(spus);
+        return new Result(false,StatusCode.OK,"成功",new PageResult<>(info.getTotal(),spus));
 
-        return new PageResult<>(info.getTotal(),spus);
     }
 
     private void loadCategoryAndBrandName(List<Spu> spus) {
@@ -89,7 +89,7 @@ public class GoodsService {
         }
     }
 
-    public void saveGoods(Spu spu) {
+    public Result saveGoods(Spu spu) {
         //新增spu
         spu.setId(null);
         spu.setSaleable(true);
@@ -98,7 +98,7 @@ public class GoodsService {
         spu.setLastUpdateTime(spu.getCreateTime());
         int count = this.spuMapper.insertSelective(spu);
         if (count!=1){
-            throw  new GehuaException(ExceptionEnum.SAVE_GOODS_ERROR);
+            return new Result(false,StatusCode.SAVE_GOODS_ERROR,"新增商品失败");
         }
 
         //新增spuDetail
@@ -119,7 +119,7 @@ public class GoodsService {
 
              count = skuMapper.insert(sku);
             if (count!=1){
-                throw  new GehuaException(ExceptionEnum.SAVE_GOODS_ERROR);
+                return new Result(false,StatusCode.SAVE_GOODS_ERROR,"新增商品失败");
             }
             //新增库存
             Stock stock = new Stock();
@@ -131,29 +131,34 @@ public class GoodsService {
         //批量新增库存
         count=stockMapper.insertList(stockList);
         if (count!=stockList.size()){
-            throw  new GehuaException(ExceptionEnum.SAVE_GOODS_ERROR);
+
+            return new Result(false,StatusCode.SAVE_GOODS_ERROR,"新增商品失败");
         }
         //发送mq消息
         amqpTemplate.convertAndSend("item.insert",spu.getId());
 
 
+        return new Result(false,StatusCode.OK,"新增商品成功");
+
+
     }
 
-    public SpuDetail queryDetailById(Long spuId) {
+    public Result queryDetailById(Long spuId) {
         SpuDetail spuDetail = spuDetailMapper.selectByPrimaryKey(spuId);
         if (spuDetail==null){
-            throw new GehuaException(ExceptionEnum.GOODS_DETAIL_NOT_FOND);
+
+            return new Result(false,StatusCode.GOODS_DETAIL_NOT_FOND,"商品详情不存在");
         }
-        return  spuDetail;
+        return new Result(false,StatusCode.OK,"成功",spuDetail);
     }
 
-    public List<Sku> querySkuBySpuId(Long spuId) {
+    public Result querySkuBySpuId(Long spuId) {
         //查询sku
         Sku sku = new Sku();
         sku.setSpuId(spuId);
         List<Sku> skuList = skuMapper.select(sku);
         if(CollectionUtils.isEmpty(skuList)){
-            throw new GehuaException(ExceptionEnum.GOODS_SKU_NOT_FOND);
+            return new Result(false,StatusCode.GOODS_SKU_NOT_FOND,"商品SKu不存在");
         }
 
         //查询库存
@@ -172,12 +177,11 @@ public class GoodsService {
         Map<Long,Integer> stockMap=stockList.stream().collect(Collectors.toMap(Stock::getSkuId,Stock::getStock));
         skuList.forEach(s->s.setStock(stockMap.get(s.getId())));
 
-        return skuList;
-
+        return new Result(false,StatusCode.OK,"成功",skuList);
     }
 
     @Transactional
-    public void updateGoods(Spu spu) {
+    public Result updateGoods(Spu spu) {
         Sku sku = new Sku();
         sku.setSpuId(spu.getId());
         //查询sku
@@ -197,12 +201,12 @@ public class GoodsService {
         spu.setCreateTime(null);
         int count = spuMapper.updateByPrimaryKeySelective(spu);
         if(count!=1){
-            throw new GehuaException(ExceptionEnum.GOODS_UPDATE_ERROR);
+            return new Result(false,StatusCode.GOODS_UPDATE_ERROR,"更新商品失败");
         }
         //修改detail
         count = spuDetailMapper.updateByPrimaryKeySelective(spu.getSpuDetail());
         if(count!=1){
-            throw new GehuaException(ExceptionEnum.GOODS_UPDATE_ERROR);
+            return new Result(false,StatusCode.GOODS_UPDATE_ERROR,"更新商品失败");
         }
 
         //新增sku和stock
@@ -210,7 +214,7 @@ public class GoodsService {
 
         //发送mq消息
         amqpTemplate.convertAndSend("item.update",spu.getId());
-
+        return new Result(false,StatusCode.OK,"成功");
 
     }
 

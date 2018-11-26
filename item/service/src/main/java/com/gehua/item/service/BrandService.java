@@ -1,9 +1,9 @@
 package com.gehua.item.service;
 
 
-import com.gehua.common.enums.ExceptionEnum;
-import com.gehua.common.exception.GehuaException;
-import com.gehua.common.vo.PageResult;
+import com.gehua.common.utils.PageResult;
+import com.gehua.common.utils.Result;
+import com.gehua.common.utils.StatusCode;
 import com.gehua.item.mapper.BrandMapper;
 import com.gehua.pojo.Brand;
 import com.github.pagehelper.PageHelper;
@@ -22,7 +22,7 @@ public class BrandService {
     @Autowired
     private BrandMapper brandMapper;
 
-    public PageResult<Brand> queryBrandByPage(Integer page, Integer rows, String sortBy, Boolean desc, String key) {
+    public Result queryBrandByPage(Integer page, Integer rows, String sortBy, Boolean desc, String key) {
         //分页
         PageHelper.startPage(page,rows);
         //过滤
@@ -40,47 +40,53 @@ public class BrandService {
         List<Brand> list = this.brandMapper.selectByExample(example);
 
         if(CollectionUtils.isEmpty(list)){
-            throw new GehuaException(ExceptionEnum.BRAND_NOT_FOND);
+            return new Result(false,StatusCode.BRAND_NOT_FOND,"品牌未找到");
         }
         //解析分页结果
         PageInfo<Brand> info = new PageInfo<>(list);
-        return new PageResult<>(info.getTotal(),list);
+        return new Result(false,StatusCode.OK,"成功",new PageResult<>(info.getTotal(),list));
+
     }
+
+
 
     /*@Transactional 事物*/
     @Transactional
-    public void saveBrand(Brand brand, List<Long> cids) {
+    public Result saveBrand(Brand brand, List<Long> cids) {
         //新增
         int count=brandMapper.insert(brand);
         if(count==0){
-            throw  new GehuaException(ExceptionEnum.BRAND_SAVE_ERROR);
+            return new Result(false,StatusCode.BRAND_SAVE_ERROR,"品牌新增失败");
         }
         //新增中间表
         for(Long cid : cids){
             count=brandMapper.insertCategorybrand(cid,brand.getId());
             if(count!=1){
-                throw  new GehuaException(ExceptionEnum.CATEHORY_BRAND_SAVE_ERROR);
+                return new Result(false,StatusCode.CATEHORY_BRAND_SAVE_ERROR,"新增品牌分类中间失败");
             }
         }
+        return new Result(false,StatusCode.OK,"新增品牌分类中间失败");
     }
 
 
     public Brand queryById(Long id){
         Brand brand = brandMapper.selectByPrimaryKey(id);
         if (brand==null){
-            throw new GehuaException(ExceptionEnum.BRAND_NOT_FOND);
+
+            return new Brand();
         }
         return brand;
+
     }
 
     /*
      * 查询分类下的所有品牌
      * */
-    public List<Brand> queryBrandById(Long cid) {
+    public Result queryBrandById(Long cid) {
         List<Brand> list = brandMapper.queryByCategoryId(cid);
         if(CollectionUtils.isEmpty(list)){
-            throw new GehuaException(ExceptionEnum.BRAND_NOT_FOND);
+            return new Result(false,StatusCode.BRAND_NOT_FOND,"品牌未找到");
         }
-        return list;
+        return new Result(false,StatusCode.OK,"成功",list);
     }
 }

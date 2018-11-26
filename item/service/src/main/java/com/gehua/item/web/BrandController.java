@@ -1,6 +1,6 @@
 package com.gehua.item.web;
 
-import com.gehua.common.vo.PageResult;
+import com.gehua.common.utils.Result;
 import com.gehua.item.service.BrandService;
 import com.gehua.pojo.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class BrandController {
     * 分页查询
     * */
     @GetMapping("page")
-    public ResponseEntity<PageResult<Brand>> querybrandByPage(
+    public Result querybrandByPage(
             @RequestParam(value = "page",defaultValue = "1") Integer page,
             @RequestParam(value = "rows",defaultValue = "5") Integer rows,
             @RequestParam(value = "sortBy",required = false) String sortBy,
@@ -28,8 +28,8 @@ public class BrandController {
             @RequestParam(value = "key",required = false) String key
     ){
 
-        PageResult<Brand>  result=brandService.queryBrandByPage(page,rows,sortBy,desc,key);
-        return  ResponseEntity.ok(result);
+
+        return brandService.queryBrandByPage(page,rows,sortBy,desc,key);
 
     }
 
@@ -47,9 +47,9 @@ public class BrandController {
     * 查询分类下的所有品牌
     * */
     @GetMapping("/cid/{cid}")
-    public ResponseEntity<List<Brand>> queryBrandById(@PathVariable("cid") Long cid){
+    public Result queryBrandById(@PathVariable("cid") Long cid){
 
-        return  ResponseEntity.ok(brandService.queryBrandById(cid));
+        return  brandService.queryBrandById(cid);
 
     }
 

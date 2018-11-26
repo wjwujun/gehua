@@ -1,7 +1,8 @@
 package com.gehua.item.service;
 
-import com.gehua.common.enums.ExceptionEnum;
-import com.gehua.common.exception.GehuaException;
+
+import com.gehua.common.utils.Result;
+import com.gehua.common.utils.StatusCode;
 import com.gehua.item.mapper.SpecGroupMapper;
 import com.gehua.item.mapper.SpecParampMapper;
 import com.gehua.pojo.SpecGroup;
@@ -21,18 +22,19 @@ public class SpecGroupService {
     @Autowired
     private SpecParampMapper specParampMapper;
 
-    public List<SpecGroup> queryGroupByCid(Long cid) {
+    public Result queryGroupByCid(Long cid) {
         SpecGroup group = new SpecGroup();
         group.setCid(cid);
         List<SpecGroup> list = specGroupMapper.select(group);
 
         if(CollectionUtils.isEmpty(list)){
-            throw new GehuaException(ExceptionEnum.SPEC_GROUP_NOT_FOND);
+            return new Result(false,StatusCode.SPEC_GROUP_NOT_FOND,"商品规格组没有查到");
         }
-        return  list;
+        return new Result(false,StatusCode.OK,"成功",list);
+
     }
 
-    public  List<SpecParam> queryParamsList(Long gid, Long cid, Boolean searching) {
+    public  Result queryParamsList(Long gid, Long cid, Boolean searching) {
         SpecParam param = new SpecParam();
         param.setGroupId(gid);
         param.setCid(cid);
@@ -41,10 +43,10 @@ public class SpecGroupService {
 
         List<SpecParam> list = specParampMapper.select(param);
         if(CollectionUtils.isEmpty(list)){
-            throw new GehuaException(ExceptionEnum.SPEC_PARAM_NOT_FOND);
+            return new Result(false,StatusCode.SPEC_PARAM_NOT_FOND,"商品规格参数没有查到");
         }
 
-        return list;
+        return new Result(false,StatusCode.OK,"成功",list);
     }
 
 

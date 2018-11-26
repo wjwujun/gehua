@@ -1,8 +1,8 @@
 package com.gehua.service;
 
 
-import com.gehua.common.enums.ExceptionEnum;
-import com.gehua.common.exception.GehuaException;
+import com.gehua.common.utils.Result;
+import com.gehua.common.utils.StatusCode;
 import com.gehua.config.uploadConfig;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
@@ -17,15 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-
 
 @Service
 @EnableConfigurationProperties(uploadConfig.class)
 public class UploadService {
-
-
 
 
     @Autowired
@@ -37,21 +32,21 @@ public class UploadService {
     //private  static final List<String> allowTypes=Arrays.asList("image/png", "image/jpeg","image/bmp");
     private static final Logger log = LoggerFactory.getLogger(UploadService.class);
 
-    public String uploadImage(MultipartFile file){
+    public Result uploadImage(MultipartFile file){
         try {
 
             //校验文件类型
             String contentType = file.getContentType();
             if (!prop.getAllowTypes().contains(contentType)){
                 log.info("文件类型不存在:",file.getOriginalFilename());
-                throw  new GehuaException(ExceptionEnum.INVALID_FILE_TYPE);
+                return new Result(true,StatusCode.INVALID_FILE_TYPE,"文件类型不存在");
             }
 
             //校验文件内容
             BufferedImage image = ImageIO.read(file.getInputStream());
             if(image==null){
                 log.info("文件内容不合法:",file.getOriginalFilename());
-                throw  new GehuaException(ExceptionEnum.INVALID_FILE_TYPE);
+                return  new Result(true,StatusCode.INVALID_FILE_TYPE,"文件内容不合法");
             }
             /*
             *保存到本地
@@ -67,12 +62,12 @@ public class UploadService {
             StorePath storePath = this.storageClient.uploadFile(file.getInputStream(), file.getSize(), name, null);
 
             //返回路径
-            return prop.getBaseUrl()+storePath.getFullPath();
+            return   new Result(false,StatusCode.UPLOAD_ERROR,"文件上传失败111",prop.getBaseUrl()+storePath.getFullPath());
 
         } catch (IOException e) {
             //上传失败,抛出失败
             log.info("文件上传失败111！",e);
-            throw new GehuaException(ExceptionEnum.UPLOAD_ERROR);
+            return new Result(false,StatusCode.UPLOAD_ERROR,"文件上传失败111");
         }
     }
 }

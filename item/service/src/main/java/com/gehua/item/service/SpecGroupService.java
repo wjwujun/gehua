@@ -28,7 +28,7 @@ public class SpecGroupService {
         List<SpecGroup> list = specGroupMapper.select(group);
 
         if(CollectionUtils.isEmpty(list)){
-            return new Result(false,StatusCode.SPEC_GROUP_NOT_FOND,"商品规格组没有查到");
+            return new Result(false,StatusCode.DATA_IS_EMPTY,"商品规格组没有查到");
         }
         return new Result(false,StatusCode.OK,"成功",list);
 
@@ -43,7 +43,7 @@ public class SpecGroupService {
 
         List<SpecParam> list = specParampMapper.select(param);
         if(CollectionUtils.isEmpty(list)){
-            return new Result(false,StatusCode.SPEC_PARAM_NOT_FOND,"商品规格参数没有查到");
+            return new Result(false,StatusCode.DATA_IS_EMPTY,"商品规格参数没有查到");
         }
 
         return new Result(false,StatusCode.OK,"成功",list);

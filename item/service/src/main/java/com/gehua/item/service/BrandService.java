@@ -41,7 +41,7 @@ public class BrandService {
         List<Brand> list = this.brandMapper.selectByExample(example);
 
         if(CollectionUtils.isEmpty(list)){
-            return new Result(false,StatusCode.BRAND_NOT_FOND,"品牌未找到");
+            return new Result(false,StatusCode.QUERRY_NOT_FOND,"品牌未找到");
         }
         //解析分页结果
         PageInfo<Brand> info = new PageInfo<>(list);
@@ -56,14 +56,14 @@ public class BrandService {
         //新增
         int count=brandMapper.insert(brand);
         if(count==0){
-            return new Result(false,StatusCode.BRAND_SAVE_ERROR,"品牌新增失败");
+            return new Result(false,StatusCode.ADD_ERROR,"品牌新增失败");
         }
         //新增中间表
         for(Long cid : brand.getCids()){
             System.out.println(cid);
             count=brandMapper.addCategorybrand(cid,brand.getId());
             if(count!=1){
-                return new Result(false,StatusCode.CATEHORY_BRAND_SAVE_ERROR,"新增品牌分类中间失败");
+                return new Result(false,StatusCode.ADD_ERROR,"新增品牌分类中间失败");
             }
         }
         return new Result(false,StatusCode.OK,"新增品牌成功");
@@ -73,7 +73,6 @@ public class BrandService {
     public Brand findById(Long id){
         Brand brand = brandMapper.selectByPrimaryKey(id);
         if (brand==null){
-
             return new Brand();
         }
         return brand;
@@ -86,8 +85,28 @@ public class BrandService {
     public Result findByCid(Long cid) {
         List<Brand> list = brandMapper.findByCategoryId(cid);
         if(CollectionUtils.isEmpty(list)){
-            return new Result(false,StatusCode.BRAND_NOT_FOND,"品牌未找到");
+            return new Result(false,StatusCode.QUERRY_NOT_FOND,"品牌未找到");
         }
         return new Result(false,StatusCode.OK,"成功",list);
+    }
+
+
+    /*修改品牌*/
+    public Result update(Brand brand) {
+        int count=brandMapper.updateByExample(brand,brand.getId());
+        if(count!=1){
+            return new Result(false,StatusCode.UPDATE_ERROR,"品牌修改失败");
+        }
+        return new Result(false,StatusCode.OK,"品牌修改成功");
+
+    }
+
+    /*删除品牌*/
+    public Result del(Brand brand) {
+        int count=brandMapper.delete(brand);
+        if(count!=1){
+            return new Result(false,StatusCode.DELETE_ERROR,"品牌删除失败");
+        }
+        return new Result(false,StatusCode.OK,"品牌删除成功");
     }
 }

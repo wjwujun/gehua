@@ -66,7 +66,7 @@ public class GoodsService {
         List<Spu> spus = spuMapper.selectByExample(example);
 
         if(CollectionUtils.isEmpty(spus)){
-            return new Result(false,StatusCode.GOODS_NOT_FOND,"商品不存在");
+            return new Result(false,StatusCode.QUERRY_NOT_FOND,"商品不存在");
         }
 
         //解析分类和品牌的名称
@@ -98,7 +98,7 @@ public class GoodsService {
         spu.setLastUpdateTime(spu.getCreateTime());
         int count = this.spuMapper.insertSelective(spu);
         if (count!=1){
-            return new Result(false,StatusCode.SAVE_GOODS_ERROR,"新增商品失败");
+            return new Result(false,StatusCode.ADD_ERROR,"新增商品失败");
         }
 
         //新增spuDetail
@@ -119,7 +119,7 @@ public class GoodsService {
 
              count = skuMapper.insert(sku);
             if (count!=1){
-                return new Result(false,StatusCode.SAVE_GOODS_ERROR,"新增商品失败");
+                return new Result(false,StatusCode.ADD_ERROR,"新增商品失败");
             }
             //新增库存
             Stock stock = new Stock();
@@ -132,7 +132,7 @@ public class GoodsService {
         count=stockMapper.insertList(stockList);
         if (count!=stockList.size()){
 
-            return new Result(false,StatusCode.SAVE_GOODS_ERROR,"新增商品失败");
+            return new Result(false,StatusCode.ADD_ERROR,"新增商品失败");
         }
         //发送mq消息
         amqpTemplate.convertAndSend("item.insert",spu.getId());
@@ -147,7 +147,7 @@ public class GoodsService {
         SpuDetail spuDetail = spuDetailMapper.selectByPrimaryKey(spuId);
         if (spuDetail==null){
 
-            return new Result(false,StatusCode.GOODS_DETAIL_NOT_FOND,"商品详情不存在");
+            return new Result(false,StatusCode.QUERRY_NOT_FOND,"商品详情不存在");
         }
         return new Result(false,StatusCode.OK,"成功",spuDetail);
     }
@@ -158,7 +158,7 @@ public class GoodsService {
         sku.setSpuId(spuId);
         List<Sku> skuList = skuMapper.select(sku);
         if(CollectionUtils.isEmpty(skuList)){
-            return new Result(false,StatusCode.GOODS_SKU_NOT_FOND,"商品SKu不存在");
+            return new Result(false,StatusCode.QUERRY_NOT_FOND,"商品SKu不存在");
         }
 
         //查询库存
@@ -202,12 +202,12 @@ public class GoodsService {
         spu.setCreateTime(null);
         int count = spuMapper.updateByPrimaryKeySelective(spu);
         if(count!=1){
-            return new Result(false,StatusCode.GOODS_UPDATE_ERROR,"更新商品失败");
+            return new Result(false,StatusCode.UPDATE_ERROR,"更新商品失败");
         }
         //修改detail
         count = spuDetailMapper.updateByPrimaryKeySelective(spu.getSpuDetail());
         if(count!=1){
-            return new Result(false,StatusCode.GOODS_UPDATE_ERROR,"更新商品失败");
+            return new Result(false,StatusCode.UPDATE_ERROR,"更新商品失败");
         }
 
         //新增sku和stock

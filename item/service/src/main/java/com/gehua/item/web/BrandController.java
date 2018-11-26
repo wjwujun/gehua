@@ -15,7 +15,7 @@ public class BrandController {
     /*
     * 分页查询
     * */
-    @GetMapping("pageBrand")
+    @GetMapping("page")
     public Result pageBrand(
             @RequestParam(value = "page",defaultValue = "1") Integer page,
             @RequestParam(value = "rows",defaultValue = "5") Integer rows,
@@ -35,12 +35,23 @@ public class BrandController {
         return  brandService.add(brand);
     }
 
+
+    /*删除*/
+    @DeleteMapping
+    public  Result delBrand(@RequestBody Brand brand){
+        return  brandService.del(brand);
+    }
+    /*修改*/
+    @PutMapping
+    public  Result updateBrand(@RequestBody Brand brand){
+        return  brandService.update(brand);
+    }
+
     /*
     * 查询分类下的所有品牌
     * */
     @GetMapping("/cid/{cid}")
     public Result queryBrandById(@PathVariable("cid") Long cid){
-
         return  brandService.findByCid(cid);
 
     }

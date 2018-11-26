@@ -24,7 +24,7 @@ public class CategoryService {
         //select将t对象中的非空字段,作为查询对象
         List<Category> list = categoryMapper.select(t);
         if (CollectionUtils.isEmpty(list)){
-            return new Result(false,StatusCode.CATEHORY_NOT_FOND,"数据为空");
+            return new Result(false,StatusCode.DATA_IS_EMPTY,"数据为空");
         }
         return new Result(false,StatusCode.OK,"成功",list);
     }

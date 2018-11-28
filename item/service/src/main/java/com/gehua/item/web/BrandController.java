@@ -12,9 +12,7 @@ public class BrandController {
     @Autowired
     private BrandService brandService;
 
-    /*
-    * 分页查询
-    * */
+    /*分页查询*/
     @GetMapping("page")
     public Result pageBrand(
             @RequestParam(value = "page",defaultValue = "1") Integer page,

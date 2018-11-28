@@ -26,7 +26,7 @@ public class Spu {
     private Boolean valid;// 是否有效，逻辑删除用
     private Date createTime;// 创建时间
 
-    @JsonIgnore                 //返回到页面的时候忽略这个字段
+    @JsonIgnore
     private Date lastUpdateTime;// 最后修改时间
 
 
@@ -36,7 +36,6 @@ public class Spu {
     private String bname;
     @Transient
     private List<Sku> skus;
-
     @Transient
     private SpuDetail spuDetail;
 

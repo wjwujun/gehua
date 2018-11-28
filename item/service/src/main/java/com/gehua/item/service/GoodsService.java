@@ -45,6 +45,7 @@ public class GoodsService {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
+    /*商品分页获取*/
     public Result pageQuery(Integer page, Integer rows, Boolean saleable, String key) {
         //分页
         PageHelper.startPage(page,rows);
@@ -77,11 +78,13 @@ public class GoodsService {
 
     }
 
+    /*获取商品分页中每个商品的分类和品牌*/
     private void loadCategoryAndBrandName(List<Spu> spus) {
         for (Spu spu : spus) {
             //处理分类名称
             List<String> names = categoryService.findByIds(Arrays.asList(spu.getCid1(), spu.getCid2()
                     , spu.getCid3())).stream().map(Category::getName).collect(Collectors.toList());
+
             spu.setCname(StringUtils.join(names,"/"));
             //处理品牌名称
             spu.setBname(brandService.findById(spu.getBrandId()).getName());
@@ -89,7 +92,10 @@ public class GoodsService {
         }
     }
 
+    /*添加一个商品*/
     public Result save(Spu spu) {
+        System.out.println(spu);
+
         //新增spu
         spu.setId(null);
         spu.setSaleable(true);
@@ -100,7 +106,7 @@ public class GoodsService {
         if (count!=1){
             return new Result(false,StatusCode.ADD_ERROR,"新增商品失败");
         }
-
+        System.out.println(spu.getId());
         //新增spuDetail
         SpuDetail spuDetail = spu.getSpuDetail();
 
@@ -131,9 +137,10 @@ public class GoodsService {
         //批量新增库存
         count=stockMapper.insertList(stockList);
         if (count!=stockList.size()){
-
             return new Result(false,StatusCode.ADD_ERROR,"新增商品失败");
         }
+
+
         //发送mq消息
         amqpTemplate.convertAndSend("item.insert",spu.getId());
 
@@ -143,16 +150,18 @@ public class GoodsService {
 
     }
 
+    /*根据spuId查询详情spu_detail    */
     public Result findDetailById(Long spuId) {
         SpuDetail spuDetail = spuDetailMapper.selectByPrimaryKey(spuId);
-        if (spuDetail==null){
 
+        if (spuDetail==null){
             return new Result(false,StatusCode.QUERRY_NOT_FOND,"商品详情不存在");
         }
         return new Result(false,StatusCode.OK,"成功",spuDetail);
     }
 
-    public Result findBySpid(Long spuId) {
+    /*根据spu查询下面所有的sku*/
+    public Result findSku(Long spuId) {
         //查询sku
         Sku sku = new Sku();
         sku.setSpuId(spuId);

@@ -6,17 +6,14 @@ import com.gehua.pojo.Spu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-
 @RestController
+@RequestMapping("/spu")
 public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
-    /*
-    * 根据关键字分页查询spu
-    * */
-    @GetMapping("/spu/page")
+    /*根据关键字分页查询spu* */
+    @GetMapping("/page")
     public Result querySpuBbyPage(
             @RequestParam(value = "page",defaultValue = "1") Integer page,
             @RequestParam(value = "rows",defaultValue = "5") Integer rows,
@@ -27,40 +24,28 @@ public class GoodsController {
     }
 
 
-    /*
-    *
-    * 商品新增
-    * */
-    @PostMapping("goods")
+    /*商品新增* */
+    @PostMapping("/goods")
     public Result saveGoods(@RequestBody Spu spu){
         return goodsService.save(spu);
     }
 
-    /*
-     *
-     * 商品修改
-     * */
-    @PutMapping("goods")
+    /* 商品修改*/
+    @PutMapping("/goods")
     public Result updateGoods(@RequestBody Spu spu){
         return   goodsService.update(spu);
     }
 
-    /*
-    *根据spu的id查询详情detail
-    *
-    * */
-
-    @GetMapping("/spu/detail/{id}")
-    public Result queryDetailById(@PathParam("id") Long spuId){
+    /*根据spuId查询详情spu_detail */
+    @GetMapping("/detail/{spuId}")
+    public Result queryDetailById(@PathVariable("spuId") Long spuId){
         return goodsService.findDetailById(spuId);
     }
 
-    /*
-    * 根据spu查询下面所有的sku
-    * */
-    @GetMapping("sku/list")
+    /*根据spu查询下面所有的sku* */
+    @GetMapping("/sku/list")
     public Result  querySkuBySpuId(@RequestParam("id") Long spuId){
-            return goodsService.findBySpid(spuId);
+        return goodsService.findSku(spuId);
     }
 
 

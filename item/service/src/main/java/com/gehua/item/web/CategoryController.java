@@ -14,6 +14,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    /*获取所有商品分类*/
     @GetMapping("list")
     public Result queryCategoryListByPid(@RequestParam("pid") Long pid){
 

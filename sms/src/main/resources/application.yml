@@ -1,0 +1,30 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: sms
+  rabbitmq:
+        host: 47.98.136.216
+        username: admin
+        password: admin
+        virtual-host: /gehua
+  redis:
+    host: 122.225.58.118
+    password: U#rNFRkk3vuCKcZ5
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+gehua:
+  sms:
+    accessKeyId:  LTAI4NNdV5nYBXVa  #AccessKeyID
+    accessKeySecret:  2A2Qx14Fi5GoIR6LYKZkfUTV8TLrSu #AccessKeySecret
+    signName: 歌华开发    #签名
+    verifyCodeTemplate: SMS_133 #模板
+
+
+
+
+

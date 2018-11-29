@@ -78,7 +78,7 @@ public class GoodsService {
 
     }
 
-    /*获取商品分页中每个商品的分类和品牌*/
+    /*获取商品分页中每个商品的分类名和品牌名*/
     private void loadCategoryAndBrandName(List<Spu> spus) {
         for (Spu spu : spus) {
             //处理分类名称
@@ -109,7 +109,6 @@ public class GoodsService {
         System.out.println(spu.getId());
         //新增spuDetail
         SpuDetail spuDetail = spu.getSpuDetail();
-
         spuDetail.setSpuId(spu.getId());
         spuDetailMapper.insert(spuDetail);
 
@@ -189,21 +188,9 @@ public class GoodsService {
         return new Result(false,StatusCode.OK,"成功",skuList);
     }
 
-    /*修改*/
+    /*修改spu*/
     @Transactional
-    public Result update(Spu spu) {
-        Sku sku = new Sku();
-        sku.setSpuId(spu.getId());
-        //查询sku
-        List<Sku> skuList = skuMapper.select(sku);
-        if(!CollectionUtils.isEmpty(skuList)){
-            //删除sku
-            skuMapper.delete(sku);
-            // stock
-            List<Long> ids = skuList.stream().map(Sku::getId).collect(Collectors.toList());
-            stockMapper.deleteByIdList(ids);
-        }
-
+    public Result updateSpu(Spu spu) {
         //修改spu
         spu.setValid(null);
         spu.setSaleable(null);
@@ -211,22 +198,54 @@ public class GoodsService {
         spu.setCreateTime(null);
         int count = spuMapper.updateByPrimaryKeySelective(spu);
         if(count!=1){
-            return new Result(false,StatusCode.UPDATE_ERROR,"更新商品失败");
+            return new Result(false,StatusCode.UPDATE_ERROR,"商品spu修改失败");
         }
-        //修改detail
-        count = spuDetailMapper.updateByPrimaryKeySelective(spu.getSpuDetail());
-        if(count!=1){
-            return new Result(false,StatusCode.UPDATE_ERROR,"更新商品失败");
-        }
-
-        //新增sku和stock
-         //saveSkuAndStock(spu);
 
         //发送mq消息
-        amqpTemplate.convertAndSend("item.update",spu.getId());
-        return new Result(false,StatusCode.OK,"成功");
+//        amqpTemplate.convertAndSend("item.update",spu.getId());
+        return new Result(false,StatusCode.OK,"商品spu修改成功",spu);
 
     }
+
+
+    /*修改sku和库存*/
+    @Transactional
+    public Result updateSku(Sku sku) {
+
+        sku.setLastUpdateTime(new Date());
+        sku.setCreateTime(null);
+        int i = skuMapper.updateByPrimaryKeySelective(sku);
+
+        if(i!=1){
+            return new Result(false,StatusCode.UPDATE_ERROR,"商品sku修改失败");
+        }
+        Stock stock = new Stock();
+        stock.setStock(sku.getStock());
+        stock.setSkuId(sku.getId());
+        stockMapper.updateByPrimaryKeySelective(stock);
+
+        //发送mq消息
+//        amqpTemplate.convertAndSend("item.update",spu.getId());
+        return new Result(false,StatusCode.OK,"商品sku修改成功",sku);
+
+    }
+
+    /*修改spuDetail*/
+    @Transactional
+    public Result updateSpuDetail(SpuDetail spuDetail) {
+
+        int i = spuDetailMapper.updateByPrimaryKeySelective(spuDetail);
+        if(i!=1){
+            return new Result(false,StatusCode.UPDATE_ERROR,"商品spuDetail修改失败");
+        }
+
+        //发送mq消息
+//        amqpTemplate.convertAndSend("item.update",spu.getId());
+        return new Result(false,StatusCode.OK,"商品spuDetail修改成功",spuDetail);
+
+    }
+
+
 
 
 }

@@ -2,7 +2,9 @@ package com.gehua.item.web;
 
 import com.gehua.common.utils.Result;
 import com.gehua.item.service.GoodsService;
+import com.gehua.pojo.Sku;
 import com.gehua.pojo.Spu;
+import com.gehua.pojo.SpuDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,11 +32,26 @@ public class GoodsController {
         return goodsService.save(spu);
     }
 
-    /* 商品修改*/
-    @PutMapping("/goods")
-    public Result updateGoods(@RequestBody Spu spu){
-        return   goodsService.update(spu);
+    /* 修改spu*/
+    @PutMapping("/goods/spu")
+    public Result updateSpu(@RequestBody Spu spu){
+        return   goodsService.updateSpu(spu);
     }
+
+    /* 修改spuDetail*/
+    @PutMapping("/goods/spuDetail")
+    public Result updateGoods(@RequestBody SpuDetail spuDetail){
+        return   goodsService.updateSpuDetail(spuDetail);
+    }
+    /* 修改sku*/
+    @PutMapping("/goods/sku")
+    public Result updateSku(@RequestBody Sku sku){
+        return   goodsService.updateSku(sku);
+    }
+
+
+
+
 
     /*根据spuId查询详情spu_detail */
     @GetMapping("/detail/{spuId}")

@@ -11,6 +11,7 @@
         <module name="interface" />
         <module name="registry" />
         <module name="service" />
+        <module name="sms" />
         <module name="upload" />
       </profile>
     </annotationProcessing>
@@ -22,6 +23,7 @@
       <module name="item" target="1.8" />
       <module name="registry" target="1.8" />
       <module name="service" target="1.8" />
+      <module name="sms" target="1.8" />
       <module name="upload" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -4,7 +4,7 @@ spring:
   application:
     name: service
   datasource:
-    url: jdbc:mysql://47.98.136.216:3306/gehua
+    url: jdbc:mysql://47.98.136.216:3306/gehua?useUnicode=true&characterEncoding=utf8
     username: root
     password: wj@110120
   rabbitmq:   #rabbitmq客户端

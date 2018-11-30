@@ -14,6 +14,7 @@
         <module>common</module>
         <module>upload</module>
         <module>sms</module>
+        <module>user</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -17,9 +17,11 @@ public class UserController {
     public Result sendSms(@RequestBody String mobile){
         return  userService.sendSms(mobile);
     }
+
     /*注册用户*/
-    @PostMapping("regist/{code}")
-    public Result regist(@RequestBody User user, @PathVariable String code){
+    @PostMapping("regist")
+    public Result regist(@RequestBody User user){
+        System.out.println("111111111111111111111111111111");
         return  userService.regist(user);
     }
 }

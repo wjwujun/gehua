@@ -10,6 +10,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.concurrent.TimeUnit;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class userTest {
@@ -35,7 +37,7 @@ public class userTest {
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<Object>(Object.class));
         redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<Object>(Object.class));*/
-        //redisTemplate.opsForValue().set("checkcode_"+"18200142543", checkcode, 1, TimeUnit.MINUTES);//默认使用 JDK 对 key 和 value 进行序列化，转成字节存入 Redis。
+        redisTemplate.opsForValue().set("checkcode_"+"18200142543", checkcode, 1, TimeUnit.MINUTES);//默认使用 JDK 对 key 和 value 进行序列化，转成字节存入 Redis。
 
 
 
@@ -44,6 +46,7 @@ public class userTest {
         map.put("mobile", mobile);
         map.put("checkcode", checkcode);*/
         //rabbitTemplate.convertAndSend("sms", map);
+
         Object bbb = redisTemplate.opsForValue().get("checkcode_18200142543");
 
 

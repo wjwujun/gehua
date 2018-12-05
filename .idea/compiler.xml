@@ -13,6 +13,7 @@
         <module name="service" />
         <module name="sms" />
         <module name="upload" />
+        <module name="user" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,6 +26,7 @@
       <module name="service" target="1.8" />
       <module name="sms" target="1.8" />
       <module name="upload" target="1.8" />
+      <module name="user" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

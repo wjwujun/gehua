@@ -40,6 +40,7 @@
             <artifactId>mapper-core</artifactId>
             <version>1.0.4</version>
         </dependency>
+        <!--jwt加密-->
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-extra</artifactId>
@@ -51,7 +52,11 @@
             <version>1.0.4</version>
         </dependency>
 
-
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>0.6.0</version>
+            </dependency>
     </dependencies>
 
 
